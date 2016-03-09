@@ -5,14 +5,15 @@
 	^> Created Time: 2016/03/04 - 10:06:58
 *************************************************** */
 package chatroom.translate;
+import java.io.FileReader;
+import java.io.BufferedReader;
 import java.util.Scanner;
 public class Main
 {
-	public static void main(String[] args)
+	public static void main(String[] args)throws Exception
 	{
 		Scanner stdin=new Scanner(System.in);
-		String token=stdin.nextLine();
-		Translate trans=new BaiduTranslate(token);
+		Translate trans=Translate.getInstance();
 		String query=stdin.nextLine();
 		System.err.println(""+trans.translateToZh(query));
 	}

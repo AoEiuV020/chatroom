@@ -23,7 +23,7 @@ public abstract class Command
 			String arg2=arr[2];
 			if(command.equals("talkto"))
 			{
-				userControllar.talkTo(arg1,arg2);
+				userControllar.talkTo(arr);
 			}
 			else
 			{
@@ -86,6 +86,10 @@ public abstract class Command
 			{
 				userControllar.setAllData();
 			}
+			else if(command.equals("setcountry"))
+			{
+				userControllar.setCountry();
+			}
 			else if(command.equals("friend"))
 			{
 				userControllar.TwoWayFriend();
@@ -132,6 +136,7 @@ public abstract class Command
 		out.println("/exit or quit 退出");
 		out.println("/setnickname <name> 设置昵称");
 		out.println("/makefriend <friendname> 添加好友");
+		out.println("/talkto <房间名> <username1> [<username2>...] 请求与好友聊天");
 		out.println("/enter <name> 进入房间");
 		//out.println("/list");
 		//out.println("/leave");

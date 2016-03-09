@@ -10,6 +10,8 @@ import chatroom.room.RoomMedium;
 import chatroom.log.Logger;
 import chatroom.friend.Friend;
 import chatroom.online.OnlineSet;
+import chatroom.translate.Translate;
+import chatroom.data.Country;
 import java.net.Socket;
 import java.util.Set;
 import java.util.HashSet;
@@ -90,6 +92,20 @@ public class User
 	}
 	public void receive(User remoteUser,String string)
 	{
+		String translateFrom=remoteUser.getCountry();
+		String translateTo=this.getCountry();
+		if(translateFrom!=null&&translateTo!=null)
+		{
+			translateFrom=Country.fullToShort(translateFrom);
+			translateTo=Country.fullToShort(translateTo);
+			if(translateFrom.equals(translateTo)||translateFrom.equals("oth")||translateTo.equals("oth"))
+			{
+			}
+			else if(string!=null)
+			{
+				string=Translate.getInstance().translate(string,translateFrom,translateTo);
+			}
+		}
 		userControllar.receive(remoteUser,string);
 	}
 	@Override
@@ -153,10 +169,6 @@ public class User
 	public boolean createRoom(String string)
 	{
 		boolean flag=roomMedium.createRoom(this,string);
-		if(!flag)
-		{
-			sout.println("### 房间"+string+" 已存在 ###");
-		}
 		return flag;
 	}
 	public void enterRoom(String string)
@@ -257,7 +269,7 @@ public class User
 		{
 			sout.println("### "+username+" 不在线 ###");
 		}
-		else if(createRoom(token))
+		else
 		{
 			User friend=OnlineSet.getUser(friendId);
 			friend.talkRequest(this,token);
@@ -270,5 +282,9 @@ public class User
 	public void warning(String string)
 	{
 		sout.println(string);
+	}
+	public String getCountry()
+	{
+		return userData.getCountry();
 	}
 }

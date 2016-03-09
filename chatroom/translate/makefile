@@ -28,7 +28,7 @@ ECHO=echo $@:$? done...
 all:javac java
 	@$(ECHO)
 
-javac:
+javac:clean
 	javac $(JAVACFLAG) $(n)
 
 java:
@@ -36,3 +36,6 @@ java:
 
 chname:
 	sed -i "s/\<$(n)\>/$(N)/" makefile
+
+clean:
+	@-find . -name "*.class" -exec rm {} \;

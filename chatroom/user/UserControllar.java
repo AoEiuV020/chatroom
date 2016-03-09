@@ -221,6 +221,22 @@ public class UserControllar extends Thread
 	{
 		sout.println(""+user.getUserData());
 	}
+	public void setCountry()
+	{
+		sout.println("请选择国家，");
+		int i=0;
+		for(Map.Entry<String,String> country:Country.getCountriesMap().entrySet())
+		{
+			sout.print(""+country.getKey()+":"+country.getValue()+",");
+			if(++i%5==0)
+			{
+				sout.println("");
+			}
+		}
+		sout.println("");
+		String country=sin.nextLine();
+		setCountry(Country.shortToFull(country));
+	}
 	public void setAllData()
 	{
 		sout.println("请输入昵称，");
@@ -235,18 +251,7 @@ public class UserControllar extends Thread
 		sout.println("null:保密");
 		String sex=sin.nextLine();
 		setSex(sex);
-		sout.println("请选择国家，");
-		int i=0;
-		for(Map.Entry<String,String> country:Country.getCountriesMap().entrySet())
-		{
-			sout.print(""+country.getKey()+":"+country.getValue()+",");
-			if(++i%5==0)
-			{
-				sout.println("");
-			}
-		}
-		String country=sin.nextLine();
-		setCountry(Country.shortToFull(country));
+		setCountry();
 		ownData();
 	}
 	public void searchFromUsername(String username)
@@ -285,8 +290,23 @@ public class UserControllar extends Thread
 	{
 		user.onlineFriend();
 	}
-	public void talkTo(String username,String token)
+	public void talkTo(String[] arr)
 	{
-		user.talkTo(username,token);
+		String token=null;
+		if(arr.length>2)
+		{
+			token=arr[1];
+			if(user.createRoom(token))
+			{
+				for(int i=2;i<arr.length;++i)
+				{
+					user.talkTo(arr[i],token);
+				}
+			}
+			else
+			{
+				sout.println("### 房间"+token+"不存在 ###");
+			}
+		}
 	}
 }

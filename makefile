@@ -38,5 +38,6 @@ java:
 
 chname:
 	sed -i "s/\<$(name)\>/$(N)/" makefile
+
 clean:
 	@-find . -name "*.class" -exec rm {} \;

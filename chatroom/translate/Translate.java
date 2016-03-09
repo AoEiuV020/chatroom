@@ -5,9 +5,22 @@
 	^> Created Time: 2016/03/04 - 09:52:36
 *************************************************** */
 package chatroom.translate;
-public interface Translate
+public abstract class Translate
 {
-	public String translate(String query,String from,String to);
-	public String translateToEn(String query);
-	public String translateToZh(String query);
+	private static Translate instance=null;
+	public static void setInstance(Translate translate)
+	{
+		instance=translate;
+	}
+	public static Translate getInstance()
+	{
+		if(instance==null)
+		{
+			instance=new BaiduTranslate();
+		}
+		return instance;
+	}
+	public abstract String translate(String query,String from,String to);
+	public abstract String translateToEn(String query);
+	public abstract String translateToZh(String query);
 }

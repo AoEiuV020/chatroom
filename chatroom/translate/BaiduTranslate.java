@@ -5,11 +5,12 @@
 	^> Created Time: 2016/03/04 - 09:52:03
 *************************************************** */
 package chatroom.translate;
+import chatroom.log.Logger;
 import java.util.*;
 import java.io.*;
 import java.net.*;
 import net.sf.json.*;
-public class BaiduTranslate implements Translate
+public class BaiduTranslate extends Translate
 {
 	private static final String url = "http://api.fanyi.baidu.com/api/trans/vip/translate";
 	private static final String UTF8="utf-8";
@@ -17,9 +18,27 @@ public class BaiduTranslate implements Translate
 	private static final Random random = new Random();
 	private String appid;
 	private String token;
+	public BaiduTranslate()
+	{
+		String file="token";
+		String token=null;
+		try
+		{
+			BufferedReader reader=new BufferedReader(new FileReader(file));
+			token=reader.readLine();
+			reader.close();
+		}
+		catch(Exception e)
+		{
+			Logger.exception(e);
+		}
+		this.token=token;
+		this.appid="20160304000014491";
+	}
 	public BaiduTranslate(String token)
 	{
-		this(token,"20160304000014491");
+		this.token=token;
+		this.appid="20160304000014491";
 	}
 	public BaiduTranslate(String token,String appid)
 	{
@@ -59,13 +78,14 @@ public class BaiduTranslate implements Translate
 		}
 		catch(Exception e)
 		{
+			Logger.exception(e);
 			return new JSONObject();
 		}
 		return JSONObject.fromObject(stringBuffer.toString());
 	}
 	private String getDestination(JSONObject json)
 	{
-		return json.toString(4);
+		return json.getJSONArray("trans_result").getJSONObject(0).getString("dst");
 	}
 	public String translate(String query,String from,String to)
 	{
@@ -74,7 +94,6 @@ public class BaiduTranslate implements Translate
 		sign=MD5.getMD5(sign);
 		query=URLEncode(query);
 		String get=BaiduTranslate.url+"?q="+query+"&from="+from+"&to="+to+"&appid="+appid+"&salt="+salt+"&sign="+sign;
-		System.err.println(get);
 		String destination=getDestination(getJson(get));
 		return destination;
 	}
