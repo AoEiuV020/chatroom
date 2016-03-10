@@ -53,7 +53,7 @@ public class Register
 		}
 		return weak;
 	}
-	private String getPassword()
+	public String getPassword()
 	{
 		String password=null;
 		try

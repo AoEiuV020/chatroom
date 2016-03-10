@@ -5,6 +5,7 @@
 	^> Created Time: 2016/03/04 - 15:54:32
 *************************************************** */
 package chatroom.login;
+import chatroom.data.Data;
 import chatroom.user.User;
 import chatroom.online.OnlineSet;
 import chatroom.log.Logger;
@@ -32,7 +33,6 @@ public class Login
 		if(logged)
 		{
 			sout.println("登录成功");
-			Logger.login(user);
 		}
 		else
 		{
@@ -79,5 +79,15 @@ public class Login
 	{
 		mainMenu();
 		return logged;
+	}
+	public static void changePassword(User user)
+	{
+		SignIn signIn=new SignIn(user);
+		if(signIn.getPassword(user.getUsername()))
+		{
+			Register register=new Register(user);
+			String password=register.getPassword();
+			Data.changePassword(user.getId(),password);
+		}
 	}
 }

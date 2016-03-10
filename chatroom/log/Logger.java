@@ -12,6 +12,8 @@ public class Logger
 {
 	private static PrintWriter log=new PrintWriter(System.out,true);
 	private static PrintWriter loginLog=log;
+	private static PrintWriter onlineLog=log;
+	private static PrintWriter offlineLog=log;
 	private static PrintWriter createRoomLog=log;
 	private static PrintWriter registerLog=log;
 	private static PrintWriter exceptionLog=log;
@@ -21,6 +23,14 @@ public class Logger
 	public static void loginException(LoginException e)
 	{
 		log.println(""+e);
+	}
+	public static void online(User user)
+	{
+		onlineLog.println("go online "+user);
+	}
+	public static void offline(User user)
+	{
+		offlineLog.println("go offline "+user);
 	}
 	public static void register(User user)
 	{

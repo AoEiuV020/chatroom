@@ -350,4 +350,9 @@ public class UserControllar extends Thread
 			sout.println(String.format("(%s)[%s]%s",""+message.getTime(),UserData.getUsernameById(message.getUserId()),message.getMessage()));
 		}
 	}
+	public void changePassword()
+	{
+		sout.println("# 先输入旧密码验证身份再输入新密码 #");
+		Login.changePassword(user);
+	}
 }

@@ -27,4 +27,8 @@ public class Data
 	{
 		Tables.create();
 	}
+	public static void changePassword(int id,String password)
+	{
+		Change.changePassword(id,password);
+	}
 }

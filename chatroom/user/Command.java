@@ -114,6 +114,10 @@ public abstract class Command
 			{
 				userControllar.leave();
 			}
+			else if(command.equals("password"))
+			{
+				userControllar.changePassword();
+			}
 			else if(command.equals("history"))
 			{
 				userControllar.history();
@@ -146,6 +150,7 @@ public abstract class Command
 		out.println("/onewayfriend 列出所有包括单向好友");
 		out.println("/onlineFriend 列出在线好友");
 		out.println("/leave 离开房间");
+		out.println("/password 设置新密码");
 		out.println("/exit or quit 退出");
 		out.println("/setnickname <name> 设置昵称");
 		out.println("/history <roomname> 查看在指定房间里的聊天记录");

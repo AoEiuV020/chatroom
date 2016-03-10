@@ -21,12 +21,26 @@ public class SignIn
 		sin=user.getScanner();
 		sout=user.getPrintWriter();
 	}
+	public boolean getPassword(String username)
+	{
+		boolean flag=false;
+		String password=Password.getPassword(sin,sout);
+		if(!Data.checkPassword(username,password))
+		{
+			flag=false;
+			sout.println("密码错误，");
+		}
+		else
+		{
+			flag=true;
+		}
+		return flag;
+	}
 	public boolean signIn()
 	{
 		boolean logged=false;
-		String username,password;
+		String username;
 		username=Username.getUsername(sin,sout);
-		password=Password.getPassword(sin,sout);
 		if(!Data.existsUsername(username))
 		{
 			logged=false;
@@ -34,24 +48,16 @@ public class SignIn
 		}
 		else
 		{
-			if(!Data.checkPassword(username,password))
-			{
-				logged=false;
-				sout.println("密码错误，");
-			}
-			else
-			{
-				logged=true;
-			}
+			logged=getPassword(username);
 		}
 		user.setUserData(username);
 		/*
-		if(OnlineSet.isOnline(user.getUserData().getId()))
-		{
-			sout.println("该用户已经登录，");
-			logged=false;
-		}
-		*/
+		   if(OnlineSet.isOnline(user.getUserData().getId()))
+		   {
+		   sout.println("该用户已经登录，");
+		   logged=false;
+		   }
+		 */
 		return logged;
 	}
 }

@@ -14,6 +14,7 @@ public abstract class OnlineSet
 	static Set<User> list=new LinkedHashSet<User>();
 	public static void add(User user)
 	{
+		Logger.online(user);
 		offline(user.getId());
 		list.add(user);
 	}
@@ -21,6 +22,7 @@ public abstract class OnlineSet
 	{
 		if(list.contains(user))
 		{
+			Logger.offline(user);
 			list.remove(user);
 		}
 	}

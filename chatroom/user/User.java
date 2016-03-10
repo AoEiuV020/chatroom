@@ -117,12 +117,12 @@ public class User
 			if(userData!=null)
 			{
 				name=userData.getNickname();
-				if(name==null)
+				if(name==null||name.equals("null"))
 				{
 					name=userData.getUsername();
 				}
 			}
-			if(name==null)
+			if(name==null||name.equals("null"))
 			{
 				if(socket!=null)
 				{
