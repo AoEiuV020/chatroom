@@ -26,7 +26,10 @@ jar=-classpath .;$(mysql);$(json);$(beanutils);$(collections);$(lang);$(logging)
 JAVACFLAG+=$(jar)
 JAVAFLAG+=$(jar)
 args=0.0.0.0 45678
+host=localhost
+ip=45678
 ECHO=echo $@:$? done...
+.PHONY:all javac java client
 all:javac java
 	@$(ECHO)
 
@@ -35,6 +38,10 @@ javac:clean
 
 java:
 	java $(JAVAFLAG) $(bn) $(args)
+
+client:
+	javac -J$(JAVACENCODING) -J$(LANG) client/Client.java
+	java $(JAVACENCODING) $(LANG) client.Client $(host) $(ip)
 
 chname:
 	sed -i "s/\<$(name)\>/$(N)/" makefile
