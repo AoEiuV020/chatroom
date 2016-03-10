@@ -6,7 +6,6 @@
 *************************************************** */
 package chatroom.history;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 public class Message
 {
 	int userId=0;
@@ -33,7 +32,7 @@ public class Message
 	}
 	public LocalDateTime getTime()
 	{
-		return time.toLocalDateTime();
+		return new LocalDateTime(time);
 	}
 	public void setMessage(String mess)
 	{

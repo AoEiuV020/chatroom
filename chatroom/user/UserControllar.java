@@ -13,13 +13,13 @@ import chatroom.log.Logger;
 import chatroom.online.OnlineSet;
 import chatroom.history.UserChatHistory;
 import chatroom.history.Message;
+import chatroom.history.LocalDateTime;
 import java.util.Scanner;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.time.LocalDateTime;
 import java.net.SocketException;
 import java.util.NoSuchElementException;
 public class UserControllar extends Thread
@@ -112,14 +112,7 @@ public class UserControllar extends Thread
 	}
 	public void receive(LocalDateTime time,String username,String string)
 	{
-		try
-		{
-			sout.println(String.format("(%s)[%s]%s",time.toString(),username,string));
-		}
-		catch(Exception e)
-		{
-			Logger.exception(e);
-		}
+		sout.println(String.format("(%s)[%s]%s",time.toString(),username,string));
 	}
 	public void receive(LocalDateTime time,User remoteUser,String string)
 	{
@@ -347,7 +340,12 @@ public class UserControllar extends Thread
 		Set<Message> set=UserChatHistory.get(user.getId(),roomName);
 		for(Message message:set)
 		{
-			sout.println(String.format("(%s)[%s]%s",""+message.getTime(),UserData.getUsernameById(message.getUserId()),message.getMessage()));
+
+			LocalDateTime time=message.getTime();
+			String username=UserData.getUsernameById(message.getUserId());
+			String string=message.getMessage();
+			//sout.println(String.format("(%s)[%s]%s",""+time,username,string));
+			receive(time,username,string);
 		}
 	}
 	public void changePassword()
