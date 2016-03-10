@@ -185,11 +185,6 @@ public class User
 	}
 	public void leave()
 	{
-		String username=userData.getUsername();
-		if(username!=null)
-		{
-			enterRoom(username);
-		}
 		enterRoom("hall");
 	}
 	public UserData getUserData()

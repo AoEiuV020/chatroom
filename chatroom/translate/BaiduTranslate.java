@@ -89,6 +89,10 @@ public class BaiduTranslate extends Translate
 	}
 	public String translate(String query,String from,String to)
 	{
+		if(query==null||query.isEmpty())
+		{
+			return "";
+		}
 		int salt=getSalt();
 		String sign=""+appid+query+salt+token;
 		sign=MD5.getMD5(sign);

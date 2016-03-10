@@ -22,7 +22,6 @@ public abstract class UserDataWriter
 		Database.getInstance().executeUpdate(sql);
 		*/
 		String sql="update userdata set nickname=?,sex="+sex+",age="+age+",country=? where id="+id+"";
-		Logger.log(sql);
 		try
 		{
 			PreparedStatement preparedStatement=Database.getInstance().getConnection().prepareStatement(sql);

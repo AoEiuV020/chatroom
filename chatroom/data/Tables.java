@@ -29,20 +29,31 @@ public abstract class Tables
 		tables=new HashMap<String,String>();
 		tables.put("user",
 				"id int unsigned not null auto_increment,"+
-				"username char(60) not null,"+
+				"username char(22) not null,"+
 				"password char(45) not null,"+
 				"primary key(id),"+
 				"unique (username)");
 		tables.put("userdata",
-				"id int unsigned not null,"+
-				"nickname char(60),"+
+				"id int unsigned not null,"+//本该是外键，指向user中的id，
+				"nickname char(22),"+
 				"country char(6),"+
 				"sex enum('man','woman'),"+
 				"age int,"+
 				"primary key(id)");
 		tables.put("friend",
-				"id int unsigned not null,"+
-				"friendid int unsigned not null,"+
+				"id int unsigned not null,"+//本该是外键，指向user中的id，
+				"friendid int unsigned not null,"+//本该是外键，指向user中的id，
 				"primary key(id,friendid)");
+		tables.put("userchathistory",
+				"id int unsigned not null,"+//本该是外键，指向user中的id，
+				"messageid int unsigned not null,"+//本该是外键，指向chatmessage中的id，
+				"primary key(id,messageid)");
+		tables.put("chatmessage",
+				"id int unsigned not null auto_increment,"+
+				"userid int unsigned not null,"+//本该是外键，指向user中的id，
+				"time timestamp ,"+
+				"room varchar(22) not null,"+
+				"message varchar(1000) not null,"+
+				"primary key(id)");
 	}
 }

@@ -19,24 +19,43 @@ public abstract class UserDataReader
 		String sql="select * from user,userdata where user.id=userdata.id&&user.id="+id+"";
 		return getUserData(sql);
 	}
+	public static String getUsernameById(int id)
+	{
+		String username=null;
+		try
+		{
+			String sql="select username from user where id="+id+"";
+			Statement statement=Database.getInstance().getStatement();
+			ResultSet resultSet=statement.executeQuery(sql);
+			if(resultSet.next())
+			{
+				username=resultSet.getString("username");
+			}
+		}
+		catch(SQLException e)
+		{
+			Logger.exception(e);
+		}
+		return username;
+	}
 	public static int getIdByUsername(String username)
 	{
+		int id=0;
 		try
 		{
 			String sql="select id from user where username='"+username+"'";
 			Statement statement=Database.getInstance().getStatement();
 			ResultSet resultSet=statement.executeQuery(sql);
-			int id=0;
 			if(resultSet.next())
 			{
 				id=resultSet.getInt("id");
 			}
-			return id;
 		}
-		catch(Exception e)
+		catch(SQLException e)
 		{
-			throw new RuntimeException(e);
+			Logger.exception(e);
 		}
+		return id;
 	}
 	private static UserData getUserData(String sql)
 	{

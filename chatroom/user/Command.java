@@ -66,6 +66,10 @@ public abstract class Command
 			{
 				userControllar.enterRoom(arg);
 			}
+			else if(command.equals("history"))
+			{
+				userControllar.history(arg);
+			}
 			else
 			{
 				flag=false;
@@ -106,6 +110,14 @@ public abstract class Command
 			{
 				userControllar.OneWayFriend();
 			}
+			else if(command.equals("leave"))
+			{
+				userControllar.leave();
+			}
+			else if(command.equals("history"))
+			{
+				userControllar.history();
+			}
 			else if(Arrays.asList(new String[]{"exit","quit"}).contains(command))
 			{
 				userControllar.exit();
@@ -133,15 +145,14 @@ public abstract class Command
 		out.println("/friend 列出所有好友");
 		out.println("/onewayfriend 列出所有包括单向好友");
 		out.println("/onlineFriend 列出在线好友");
+		out.println("/leave 离开房间");
 		out.println("/exit or quit 退出");
 		out.println("/setnickname <name> 设置昵称");
+		out.println("/history <roomname> 查看在指定房间里的聊天记录");
+		out.println("/history 查看聊过天的房间");
 		out.println("/makefriend <friendname> 添加好友");
-		out.println("/talkto <房间名> <username1> [<username2>...] 请求与好友聊天");
 		out.println("/enter <name> 进入房间");
-		//out.println("/list");
-		//out.println("/leave");
-		//out.println("/create <room>");
-		//out.println("/enter <room>");
+		out.println("/talkto <roomname> <username1> [<username2>...] 请求与好友聊天");
 		return charArrayWriter.toString();
 	}
 }

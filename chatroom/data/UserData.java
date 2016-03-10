@@ -118,4 +118,8 @@ public class UserData
 	{
 		return UserDataReader.getIdByUsername(username);
 	}
+	public static String getUsernameById(int id)
+	{
+		return UserDataReader.getUsernameById(id);
+	}
 }

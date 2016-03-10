@@ -11,11 +11,15 @@ import chatroom.login.Login;
 import chatroom.login.LoginException;
 import chatroom.log.Logger;
 import chatroom.online.OnlineSet;
+import chatroom.history.UserChatHistory;
+import chatroom.history.Message;
 import java.util.Scanner;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Set;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.time.LocalDateTime;
 import java.net.SocketException;
 import java.util.NoSuchElementException;
 public class UserControllar extends Thread
@@ -106,16 +110,24 @@ public class UserControllar extends Thread
 			Logger.exception(e);
 		}
 	}
-	public void receive(User remoteUser,String string)
+	public void receive(LocalDateTime time,String username,String string)
 	{
 		try
 		{
-			sout.println(""+remoteUser+":"+string);
+			sout.println(String.format("(%s)[%s]%s",time.toString(),username,string));
 		}
 		catch(Exception e)
 		{
 			Logger.exception(e);
 		}
+	}
+	public void receive(LocalDateTime time,User remoteUser,String string)
+	{
+		receive(time,remoteUser.getUsername(),string);
+	}
+	public void receive(User remoteUser,String string)
+	{
+		receive(LocalDateTime.now(),remoteUser,string);
 	}
 	private boolean isCommand(String string)
 	{
@@ -276,7 +288,14 @@ public class UserControllar extends Thread
 	}
 	public void makeFriendByUsername(String username)
 	{
-		user.makeFriendByUsername(username);
+		if(user.getUsername().equals(username))
+		{
+			sout.println("### 不能添加自己为好友 ###");
+		}
+		else
+		{
+			user.makeFriendByUsername(username);
+		}
 	}
 	public void TwoWayFriend()
 	{
@@ -307,6 +326,28 @@ public class UserControllar extends Thread
 			{
 				sout.println("### 房间"+token+"不存在 ###");
 			}
+		}
+	}
+	public void history()
+	{
+		Set<String> set=UserChatHistory.listRoom(user.getId());
+		int i=0;
+		for(String roomName:set)
+		{
+			sout.print(roomName+",");
+			if(++i%5==0)
+			{
+				sout.println("");
+			}
+		}
+		sout.println("");
+	}
+	public void history(String roomName)
+	{
+		Set<Message> set=UserChatHistory.get(user.getId(),roomName);
+		for(Message message:set)
+		{
+			sout.println(String.format("(%s)[%s]%s",""+message.getTime(),UserData.getUsernameById(message.getUserId()),message.getMessage()));
 		}
 	}
 }
