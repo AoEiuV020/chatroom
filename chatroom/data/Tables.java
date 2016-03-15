@@ -29,7 +29,7 @@ public abstract class Tables
 		tables=new HashMap<String,String>();
 		tables.put("user",
 				"id int unsigned not null auto_increment,"+
-				"username char(22) not null,"+
+				"username char(22) binary not null ,"+
 				"password char(45) not null,"+
 				"primary key(id),"+
 				"unique (username)");

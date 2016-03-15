@@ -20,8 +20,8 @@ public class Server
 		host="localhost";
 		port=45678;
 		getopt(args);
-		//Database.setInstance(new Mysql("localhost",3307,"root","usbw","chatroom"));
-		Database.setInstance(new Mysql());
+		Database.setInstance(new Mysql("localhost",3307,"root","usbw","chatroom"));
+		//Database.setInstance(new Mysql());
 		listener=new ConnectionListener(host,port);
 		listener.setDaemon(true);
 		listener.start();

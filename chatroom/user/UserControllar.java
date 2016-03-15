@@ -48,6 +48,7 @@ public class UserControllar extends Thread
 				throw new LoginException();
 			}
 			OnlineSet.add(user);
+			sout.println("输入/help看帮助，");
 			while(isRun)
 			{
 				String line=sin.nextLine();
@@ -116,7 +117,7 @@ public class UserControllar extends Thread
 	}
 	public void receive(LocalDateTime time,User remoteUser,String string)
 	{
-		receive(time,remoteUser.getUsername(),string);
+		receive(time,remoteUser.toString(),string);
 	}
 	public void receive(User remoteUser,String string)
 	{
@@ -317,7 +318,7 @@ public class UserControllar extends Thread
 			}
 			else
 			{
-				sout.println("### 房间"+token+"不存在 ###");
+				sout.println("### 房间"+token+"已经存在 ###");
 			}
 		}
 	}

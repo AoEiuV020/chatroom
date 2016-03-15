@@ -20,7 +20,7 @@ public abstract class UserChatHistory
 		Set<String> set=new LinkedHashSet<String>();
 		try
 		{
-			if(addPreparedStatement==null)
+			if(getPreparedStatement==null)
 			{
 				String sql="select m.room from chatmessage as m join userchathistory as h on m.id=h.messageid where h.id=?";
 				getPreparedStatement=Database.getInstance().getConnection().prepareStatement(sql);

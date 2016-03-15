@@ -145,10 +145,10 @@ public abstract class Command
 		PrintWriter out=new PrintWriter(charArrayWriter);
 		out.println("/help 帮助");
 		out.println("/owndata 看自己的信息");
-		out.println("/setalldat 所有设置");
+		out.println("/setalldata 所有设置");
 		out.println("/friend 列出所有好友");
 		out.println("/onewayfriend 列出所有包括单向好友");
-		out.println("/onlineFriend 列出在线好友");
+		out.println("/onlinefriend 列出在线好友");
 		out.println("/leave 离开房间");
 		out.println("/password 设置新密码");
 		out.println("/exit or quit 退出");
